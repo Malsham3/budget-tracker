@@ -1,26 +1,35 @@
 let db;
+
+//open database with the name of budget
 const request = indexedDB.open("budget");
 
 request.onupgradeneeded = function (event) {
   const db = event.target.result;
-  //creating object store
+  // Create an objectStore to hold transactions
   db.createObjectStore("pending", { autoincrement: true });
 };
 
+//triggered if the onupgradeneeded event exits successfully
 request.onsuccess = function (event) {
   db = event.target.result;
+
+  //if the status of the browser is online, run checkDatabase function.
   if (navigator.onLine) {
     checkDatabase();
   }
 };
 
+//Check database function
 function checkDatabase() {
-  const transaction = db.transaction(["pending"], "readwrite");
 
+  // Store values in the newly created objectStore.
+  const transaction = db.transaction(["pending"], "readwrite");
   const store = transaction.objectStore("pending");
 
+  //get an array of all the objects in an object store
   const getAll = store.getAll();
 
+  //triggered if the getAll function executes successfully
   getAll.onsuccess = function () {
     if (getAll.result.length > 0) {
       fetch("/api/transaction/bulk", {
@@ -43,6 +52,7 @@ function checkDatabase() {
   };
 }
 
+//saveRecord starts a transaction and makes a request to add data (new transaction)
 function saveRecord(entry) {
   const transaction = db.transaction(["pending"], "readwrite");
 
@@ -51,4 +61,5 @@ function saveRecord(entry) {
   store.add(entry);
 }
 
+//Execute checkDatabase function when the browser status is online.
 window.addEventListener("online", checkDatabase);

@@ -1,7 +1,10 @@
+//require mongoose package
 const mongoose = require("mongoose");
 
+//access schema from mongoose
 const Schema = mongoose.Schema;
 
+//define a schema for transactions with name, value, date values.
 const transactionSchema = new Schema(
   {
     name: {
@@ -20,6 +23,8 @@ const transactionSchema = new Schema(
   }
 );
 
+//create a Transaction model using the above schema
 const Transaction = mongoose.model("Transaction", transactionSchema);
 
+//export Transaction model
 module.exports = Transaction;
