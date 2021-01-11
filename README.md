@@ -19,7 +19,7 @@ The technologies used for this project are:
 
 ## Links
 - [GitHub Repository]()
-- [Heroku Depoloyment](https://git.heroku.com/frozen-bastion-18373.git)
+- [Heroku Depoloyment](https://fathomless-retreat-36536.herokuapp.com)
 
 ## Questions / Contributions
 Email me at m.alsham627@gmail.com

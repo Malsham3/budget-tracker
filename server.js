@@ -15,6 +15,7 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
+//the mongoose.connect() command will attempt to use the environment variable first. If it's running on Heroku, it will find that variable and use it. If it's running locally on your machine, it won't find that variable and will fall back to use your local database connection instead.
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/budget", {
   useNewUrlParser: true,
   useFindAndModify: false,
